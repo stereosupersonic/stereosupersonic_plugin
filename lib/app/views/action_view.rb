@@ -33,5 +33,5 @@ module StereosupersonicPlugin
   end
 end
 
-ActionView::Base.send :include, StereosupersonicPlugin::ActionView
+#ActionView::Base.send :include, StereosupersonicPlugin::ActionView
 

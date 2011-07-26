@@ -36,4 +36,4 @@ module StereosupersonicPlugin
   end
 end
 
-ApplicationHelper.send(:include, StereosupersonicPlugin::FormattingHelpers)
+#ApplicationHelper.send(:include, StereosupersonicPlugin::FormattingHelpers)
