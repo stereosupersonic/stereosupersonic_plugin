@@ -1,6 +1,6 @@
 # StereosupersonicPlugin
 
-%w{  helpers views}.each do |dir|
+%w{  helpers views support}.each do |dir|
   path = File.join(File.dirname(__FILE__), 'app', dir)
   if File.exists?(path)
     Dir.glob(path + "/*.rb").each do |f|
