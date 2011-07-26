@@ -13,19 +13,7 @@ module StereosupersonicPlugin
       date.strftime '%d.%m.%Y %H:%M' if date
     end
 
-    def format_currency(price)
-      sprintf("&euro; %.2f", price.parse_international_float).sub ".", "," unless price.blank?
-    end
-
-    def format_currency_plain(price)
-      sprintf("€ %.2f", price.parse_international_float).sub(".", ",") unless price.blank?
-    end
-
-    def format_currency_without_symbol(price)
-      sprintf("%.2f", price.parse_international_float).sub(".", ",") unless price.blank?
-    end
-    
-    def format_float(numb)
+      def format_float(numb)
       sprintf("%.1f", numb.parse_international_float).sub(".", ",") unless numb.blank?
     end
 
@@ -36,4 +24,4 @@ module StereosupersonicPlugin
   end
 end
 
-#ApplicationHelper.send(:include, StereosupersonicPlugin::FormattingHelpers)
+ApplicationHelper.send(:include, StereosupersonicPlugin::FormattingHelpers)
