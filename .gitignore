@@ -1,2 +1,11 @@
-/lib/.DS_Store
-/.DS_Store
+.bundle
+log/*.log
+tmp/**/*
+.ackrc
+.rvmrc
+*.swp 
+*~ 
+.DS_Store
+.rspec
+/.rspec
+tmp/*
