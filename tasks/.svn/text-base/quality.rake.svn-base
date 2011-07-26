@@ -1,0 +1,30 @@
+begin
+  
+  gem 'jscruggs-metric_fu'
+  require 'metric_fu'
+  
+  desc "metric_fu tasks for hudson"
+  task :hudson_metrics => [:hudson_prepare,"metrics:all"]
+
+
+  MetricFu::Configuration.run do |config|
+    #define which metrics you want to use
+    config.metrics  = [:churn,:stats, :flog, :flay, :reek, :roodi, :rcov]
+    config.graphs   = [:flog, :flay, :reek, :roodi, :rcov]
+    config.flay     = { :dirs_to_flay => ['app', 'lib']  }
+    config.flog     = { :dirs_to_flog => ['app', 'lib']  }
+    config.reek     = { :dirs_to_reek => ['app', 'lib']  }
+    config.roodi    = { :dirs_to_roodi => ['app', 'lib'] }
+   
+    config.churn    = { :start_date => "1 year ago", :minimum_churn_count => 10}
+    config.rcov     = { :test_files => ['spec/**/*_spec.rb', 'script/cucumber'],
+                        :rcov_opts => ["--sort coverage", 
+                                      "--no-html",
+                                      "--text-coverage",
+                                      "--no-color",
+                                      "--profile",
+                                      "--rails", 
+                                      "--exclude /gems/,/Library/,spec,features"]}
+  end
+rescue LoadError
+end

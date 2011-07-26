@@ -1,0 +1,39 @@
+module FooPlugin
+  module SpecHelper
+    class Hash
+      # Usage { :a => 1, :b => 2, :c => 3}.except(:a) -> { :b => 2, :c => 3}
+      def except(*keys)
+        self.reject { |k,v|
+          keys.include? k.to_sym
+        }
+      end
+
+      # Usage { :a => 1, :b => 2, :c => 3}.only(:a) -> {:a => 1}
+      def only(*keys)
+        self.dup.reject { |k,v|
+          !keys.include? k.to_sym
+        }
+      end
+
+    end
+    # common mocking functions
+    def mock_model_with_find(klass, stubs={})
+      if klass.ancestors.include?(ActiveResource::Base) 
+        klass.extend(MockedKlassMethods) unless klass.kind_of?(MockedKlassMethods)
+        model = klass.new stubs.merge(:id => (stubs[:id] || klass.next_mock_id))
+        model.extend MockedAresStubs
+      else
+        model = mock_model(klass, stubs)
+      end
+
+      returning model do |result|
+        klass.stub!(:find).with(result.id).and_return(result)
+        klass.stub!(:find).with(result.id, anything()).and_return(result)
+        klass.stub!(:find).with(result.id.to_s).and_return(result)
+        klass.stub!(:find).with(result.id.to_s, anything()).and_return(result)
+      end
+    end
+
+
+  end
+end
